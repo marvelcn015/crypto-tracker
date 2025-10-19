@@ -69,11 +69,8 @@ class ApiService {
     }
 
     async createAlert(alert: CreateAlertRequest): Promise<Alert> {
-        const response = await this.client.post<ApiResponse<Alert>>('/alerts', alert);
-        if (!response.data.data) {
-            throw new Error('Failed to create alert');
-        }
-        return response.data.data;
+        const response = await this.client.post<Alert>('/alerts', alert);
+        return response.data;
     }
 
     async deleteAlert(id: string): Promise<void> {
