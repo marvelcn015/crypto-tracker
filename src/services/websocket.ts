@@ -150,6 +150,8 @@ class SocketService {
     }
 }
 
-const socketService = new SocketService('http://localhost:8000');
+const socketService = new SocketService(
+    import.meta.env.VITE_SOCKET_URL || 'http://localhost:8000'
+);
 
 export default socketService;

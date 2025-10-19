@@ -107,7 +107,8 @@ class ApiService {
     }
 }
 
-// 建立全域實例
-const api = new ApiService('http://localhost:8000/api/v1');
+const api = new ApiService(
+    import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1'
+);
 
 export default api;
