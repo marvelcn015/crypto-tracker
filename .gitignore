@@ -24,3 +24,11 @@ dist-ssr
 *.sw?
 
 .env
+CLAUDE.md
+
+# Python
+venv
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
