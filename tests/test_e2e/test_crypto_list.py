@@ -41,8 +41,7 @@ def test_crypto_list_loads(browser):
 
     # Step 3: 等待加密貨幣卡片出現
     # 這很重要！因為數據需要從 API 載入，會有延遲
-    # 我們使用 CSS Selector 來找到卡片元素
-    # 根據你的代碼，卡片有 "card" 這個 class
+    # 使用 CSS Selector 來找到卡片元素
     wait = WebDriverWait(browser, 15)  # 最多等 15 秒（API 可能較慢）
 
     try:
@@ -101,7 +100,7 @@ def test_crypto_card_content(browser):
 
     # === 檢查 1：加密貨幣名稱 ===
     try:
-        # 根據你的代碼，名稱在 <h3> 標籤中，且有特定的 class
+        # 名稱在 <h3> 標籤中，且有特定的 class
         name_element = first_card.find_element(By.CSS_SELECTOR, "h3.font-semibold")
         crypto_name = name_element.text
 
@@ -205,7 +204,7 @@ def test_multiple_cryptos_loaded(browser):
     print(f"\nTotal cryptocurrencies loaded: {card_count}")
 
     # 驗證數量合理
-    # 根據你的 API，應該至少有 10-20 個加密貨幣
+    # 至少有 10-20 個加密貨幣
     assert card_count >= 5, f"加密貨幣數量太少，只有 {card_count} 個"
     print(f"Test passed: Loaded sufficient cryptocurrencies")
 
@@ -263,7 +262,7 @@ def test_favorite_button_exists(browser):
 
 
 """
-🎓 知識點總結：
+知識小筆記：
 
 1. **CSS Selector 語法**
    - `.card` : 選擇 class="card" 的元素
@@ -288,7 +287,7 @@ def test_favorite_button_exists(browser):
    - 加上清楚的錯誤訊息：`assert condition, "錯誤說明"`
    - 這樣測試失敗時更容易理解原因
 
-📝 下一步可以學習：
+下一步可以繼續做：
    - 如何點擊按鈕（測試收藏功能）
    - 如何輸入文字並搜尋
    - 如何測試頁面導航
