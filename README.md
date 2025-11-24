@@ -1,73 +1,126 @@
-# React + TypeScript + Vite
+# Crypto Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A real-time cryptocurrency tracking application built with React, TypeScript, and Vite. Monitor cryptocurrency prices with live updates, set price alerts, and manage your favorite coins.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Real-time Price Updates**: Live cryptocurrency prices via WebSocket connections
+- **Price Alerts**: Set custom price alerts and receive notifications when triggered
+- **Favorites Management**: Track your favorite cryptocurrencies
+- **Detailed Charts**: View historical price data with interactive charts
+- **Responsive Design**: Mobile-friendly interface with bottom navigation
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Frontend
+- **React 18** - UI library
+- **TypeScript** - Type-safe development
+- **Vite** - Fast build tool and dev server
+- **Tailwind CSS** - Utility-first styling
+- **React Router** - Client-side routing
+- **Recharts** - Data visualization
+- **Socket.io Client** - Real-time WebSocket communication
+- **Axios** - HTTP client
 
-## Expanding the ESLint configuration
+### Backend Integration
+- REST API for data fetching
+- WebSocket (Socket.io) for real-time price updates
+- Backend expected at `http://localhost:8000`, but the repo is not public 
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Architecture Highlights
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Service Layer Pattern
+- **ApiService**: Centralized HTTP client with interceptors
+- **SocketService**: Singleton WebSocket manager with event subscriptions
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Custom Hooks Pattern
+- `useSocketConnection` - Connection state management
+- `usePriceUpdates` - Real-time price update subscriptions
+- `useCryptos` - Crypto list with live updates
+- `useFavorites` - Favorites management
+- `useAlerts` - Alert management
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Data Flow
+1. Initial data fetched via REST API
+2. WebSocket connection established automatically
+3. Real-time updates merged into existing state
+4. Type-safe integration throughout
+
+## Getting Started
+
+### Prerequisites
+- Node.js 16+ and npm
+- Backend API server running on port 8000
+
+### Environment Setup
+
+Create a `.env` file in the root directory:
+
+```env
+VITE_API_BASE_URL=http://localhost:8000/api/v1
+VITE_SOCKET_URL=http://localhost:8000
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Installation
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Install dependencies
+pnpm install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Start development server
+pnpm run dev
 ```
+
+The app will be available at `http://localhost:5173`
+
+### Development Commands
+
+```bash
+# Start dev server with hot reload
+pnpm run dev
+
+# Build for production
+pnpm run build
+
+# Preview production build
+pnpm run preview
+
+# Run linter
+pnpm run lint
+```
+
+## Project Structure
+
+```
+src/
+├── components/       # Reusable UI components
+├── pages/           # Route page components
+├── hooks/           # Custom React hooks
+├── services/        # API and WebSocket services
+├── types/           # TypeScript type definitions
+└── App.tsx          # Root component with routing
+```
+
+## Key Routes
+
+- `/` - Dashboard with crypto list
+- `/crypto/:id` - Individual crypto detail page
+- `/alerts` - Manage price alerts
+- `/favorites` - View favorite cryptocurrencies
+
+## Testing
+
+E2E tests are available using Playwright:
+
+```bash
+# Run E2E tests (example in e2e/test.py)
+python e2e/test.py
+```
+
+## Contributing
+
+This project uses ESLint for code quality. Run `pnpm run lint` before committing changes.
+
+## License
+
+MIT
